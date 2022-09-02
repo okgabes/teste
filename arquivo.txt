@@ -1,0 +1,5 @@
+01 | Picanha assada | 13.10
+02 | Picanha assada | 13.50
+03 | Picanha assada | 13.50
+04 | Picanha assada | 13.40
+05 | Picanha assada | 13.50
