@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        double valorFinal[] = new double[10];
 
             FileInputStream stream = new FileInputStream("arquivo.txt"); 
             InputStreamReader reader = new InputStreamReader(stream); 
@@ -41,16 +42,6 @@ public class Main {
                     valorInteiro[l] = Double.parseDouble(valor[l]);
                 }
             }
-            
-            
-    
-        //mostrar cardapio
-        exibirListaComidas();
-
-        //loop perguntando os itens da comanda junto do codigo do cliente
-
-        //mostra o nome dos clientes
-        exibirListaClientes();
 
         String valores = comanda();
         
@@ -61,30 +52,29 @@ public class Main {
         System.out.println(valoresSeparados[2]);    //codigo da venda
 
         
+
         //criando um vetor de inteiros com os codigos
         char[] letr = null;
         String palavr = valoresSeparados[2];
         int[] vetorCodigo = new int[7]; 
         letr = palavr.toCharArray();
+
         for (int i = 0; i < letr.length; i++) {
             vetorCodigo[i] = Character.getNumericValue(letr[i]);
-            System.out.println(vetorCodigo[i] +" - "+valorInteiro[vetorCodigo[i]-1]);
-        }
-        
-        //valor do vetorCodigo[i] = (index do valorInteiro)-1
-        double valorFinal[] = {0,0,0,0,0,0,0,0,0,0};
-        for (int i = 0; i < valorFinal.length; i++) {
-            if(vetorCodigo[i]!=0){
-                valorFinal[i] = valorFinal[i]+valorInteiro[vetorCodigo[i]-1];
+            if(valorInteiro[vetorCodigo[i]-1] != 0){
+                valorFinal[vetorCodigo[i]] = valorFinal[i]+ valorInteiro[vetorCodigo[i]-1];
             }
+            System.out.println("============================");
+            
             
         }
-        System.out.println("============================");
-        for (int i = 0; i < valorFinal.length; i++) {
-            System.out.println(valorFinal[i]);
+        for (int j = 0; j < vetorCodigo.length; j++) {
+            System.out.println(valorFinal[j]);
         }
+        
 
     }
+    
     public static void exibirListaClientes() {
         //lista de clientes
         Cliente c1 = new Cliente("Diego Soares");
@@ -212,5 +202,18 @@ public class Main {
 
 
         return dados;
+    }
+
+    public static void gravarDadosTxt(String info) {
+        Path caminho = Paths.get("vendas.txt");
+
+        String texto = info;
+        byte[] textoEmByte = texto.getBytes();
+
+        try {
+            Files.write(caminho, textoEmByte);
+        } catch (Exception e) {
+            System.out.println("Erro");
+        }
     }
 }
